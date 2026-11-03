@@ -1,0 +1,344 @@
+/* Motion and interface refinement — one restrained system for the archive. */
+:root{--motion-out:cubic-bezier(.22,1,.36,1);--detail-gold:#c8b17e;--detail-ink:#080b0d}
+::selection{background:#c4a76755;color:#fff1cd}
+button:focus-visible,a:focus-visible{outline:1px solid #d7c38c;outline-offset:6px}
+
+/* A chapter index, rather than a decorative interstitial. */
+#chapter-menu{inset:0;margin:0;width:100%;max-width:none;height:100dvh;max-height:none;padding:0;border:0;background:var(--detail-ink);overflow:hidden;color:#ddd8cb}
+#chapter-menu[open]{animation:none}
+#chapter-menu::backdrop{background:#050708}
+.chapter-index{position:relative;isolation:isolate;width:100%;height:100%;overflow:hidden;background:#090d10}
+.chapter-index:after{content:"";position:absolute;inset:18px;z-index:0;border:1px solid #d2bd8220;pointer-events:none}
+.nav-visual{position:absolute;left:44%;right:0;top:0;bottom:0;overflow:hidden;z-index:-3;background:#000}
+.nav-scene{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:contain;object-position:center 28%;opacity:0;filter:saturate(.7) brightness(.8);transform:none;transition:opacity .65s ease}
+.nav-scene.is-current{opacity:1;transform:none}
+.nav-atmosphere{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#080b0d 0%,#080b0d 39%,#080b0df5 47%,#080b0d30 75%),linear-gradient(0deg,#080b0df7 0%,transparent 54%,#080b0d70)}
+.nav-header{position:absolute;left:6%;right:5.4%;top:5.6%;height:45px;display:flex;align-items:center;gap:32px;z-index:3}
+.nav-brand{display:block;width:clamp(115px,11.2vw,205px)}
+.nav-brand img{width:100%;height:auto}
+.nav-edition,.nav-eyebrow,.nav-footer,.nav-preview-number,.nav-enter,.nav-close,.nav-number,.nav-link-note{font:400 10px/1.4 Arial,sans-serif;letter-spacing:.16em}
+.nav-edition{color:#a8a594;font-size:9px;letter-spacing:.23em;border-left:1px solid #b7ab7840;padding-left:28px}
+.nav-close{margin-left:auto;display:flex;align-items:center;gap:18px;color:#bcb5a1;min-height:44px;padding:0 0 0 14px;letter-spacing:.15em}
+.nav-close i{display:grid;place-items:center;box-sizing:border-box;flex-shrink:0;border:1px solid #c8b17e55;border-radius:50%;width:42px;height:42px;transition:border-color .25s}
+.nav-close i svg{display:block;width:20px;height:20px}
+.nav-close:is(:hover,:focus-visible) i{border-color:#e7cf94}
+.nav-left{position:absolute;left:8%;top:22%;width:43%;z-index:2}
+.nav-eyebrow{color:#a89b7c;display:flex;align-items:center;gap:12px;font-size:9px;letter-spacing:.22em;margin:0 0 24px}
+.nav-eyebrow>span{width:23px;height:1px;background:#a9925e}
+.nav-left>h2{font:400 clamp(30px,3.4vw,68px)/1.12 var(--serif);letter-spacing:-.035em;margin:0 0 clamp(26px,4.5vh,55px);color:#ded9ca}
+.nav-left>h2 em{font-weight:400;color:#bda477}
+.chapter-index .nav-chapters{display:flex;flex-direction:column;gap:0;padding:0}
+.chapter-index .nav-chapters>a:not(.menu-home){position:relative;display:grid;grid-template-columns:32px minmax(0,1fr) auto 22px;gap:17px;align-items:center;min-height:clamp(58px,8.6vh,90px);padding:8px 0;border:0;border-bottom:1px solid #d2bd8226;animation:nav-row-in .65s calc(.12s + var(--order)*.06s) var(--motion-out) both;color:#8f938e}
+.nav-number{color:#6d726b;letter-spacing:.08em;font-size:10px}
+.nav-link-name{font:400 clamp(29px,2.9vw,54px)/1.1 var(--serif);letter-spacing:-.025em;transition:transform .55s var(--motion-out),color .35s}
+.nav-link-note{font-size:10px;letter-spacing:.025em;color:#969b90;transition:color .35s}
+.nav-link-arrow{font:20px Arial,sans-serif;color:#a48c5d;opacity:0;transform:translate(-7px,7px);transition:opacity .3s,transform .5s var(--motion-out)}
+.nav-chapters>a:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#c6ab72,#c6ab7230);transition:transform .6s var(--motion-out)}
+.nav-chapters>a.is-previewed .nav-link-name,.nav-chapters>a:is(:hover,:focus-visible) .nav-link-name{color:#e0c68e;transform:translateX(6px)}
+.nav-chapters>a.is-previewed .nav-number{color:#c3ad7e}
+.nav-chapters>a.is-previewed .nav-link-note{color:#aaa593}
+.nav-chapters>a.is-previewed .nav-link-arrow{opacity:1;transform:translate(0,0)}
+.nav-chapters>a.is-previewed:after{transform:scaleX(1)}
+.nav-chapters>a[aria-current="page"] .nav-number:after{content:"";display:inline-block;width:3px;height:3px;border-radius:50%;background:#cbb47b;margin-left:6px;vertical-align:middle}
+.nav-preview{position:absolute;left:62%;right:8%;bottom:18%;z-index:2}
+.nav-preview-number{color:#b19b72;font-size:9px;margin:0 0 18px;letter-spacing:.2em}
+.nav-preview-name{font:400 clamp(44px,5.3vw,100px)/1 var(--serif);letter-spacing:-.045em;color:#e4decd;margin:0 0 24px}
+.nav-preview-copy{font:400 clamp(13px,1.05vw,19px)/1.65 var(--serif);color:#b5b6a6;max-width:285px;margin:0 0 26px}
+.nav-enter{display:inline-flex;align-items:center;justify-content:space-between;gap:36px;min-height:42px;color:#d6be8b;font-size:9px;border-bottom:1px solid #ceb67b70;transition:gap .4s var(--motion-out),color .25s}
+.nav-enter span{font:19px Arial,sans-serif}
+.nav-enter:hover{gap:47px;color:#f3e2b7}
+.nav-footer{position:absolute;left:8%;right:5.4%;bottom:5.1%;display:flex;justify-content:space-between;align-items:center;gap:20px;background:transparent;color:#70796f;font-size:8px;letter-spacing:.1em}
+.nav-key-hint{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.nav-key-hint>span{padding:0 7px;color:#a18b60}
+.nav-key-hint kbd{border:1px solid #b6ab7c35;border-radius:2px;font:8px/1.5 Arial,sans-serif;padding:2px 4px;color:#9d9e8c}
+.nav-header,.nav-eyebrow,.nav-left>h2,.nav-preview,.nav-footer{animation:nav-content-in .7s .08s var(--motion-out) both}
+@keyframes nav-row-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes nav-content-in{from{opacity:0;translate:0 12px}to{opacity:1;translate:0 0}}
+
+/* Native scene continuity. The object travels once; it never bounces or grows. */
+html[data-scene-transition="armament"]::view-transition-group(shared-armament){animation-duration:.92s;animation-timing-function:var(--motion-out);z-index:2}
+html[data-scene-transition="armament"]::view-transition-old(shared-armament){animation:blade-leave .7s ease both}
+html[data-scene-transition="armament"]::view-transition-new(shared-armament){animation:blade-arrive .82s .08s ease both}
+html[data-scene-transition="armament"]::view-transition-old(root){animation:scene-leave .62s ease both}
+html[data-scene-transition="armament"]::view-transition-new(root){animation:armory-arrive .85s var(--motion-out) both}
+html[data-scene-transition="chapter"]::view-transition-old(root){animation:chapter-leave .45s ease both}
+html[data-scene-transition="chapter"]::view-transition-new(root){animation:chapter-arrive .72s var(--motion-out) both}
+@keyframes blade-leave{0%,24%{opacity:1}100%{opacity:0}}
+@keyframes blade-arrive{0%{opacity:0}100%{opacity:1}}
+@keyframes scene-leave{to{opacity:0;filter:brightness(.72)}}
+@keyframes armory-arrive{from{opacity:0;clip-path:inset(0 5% 0 0)}to{opacity:1;clip-path:inset(0)}}
+@keyframes chapter-leave{to{opacity:0;transform:translateY(-12px);filter:brightness(.8)}}
+@keyframes chapter-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.blade-is-bridging{opacity:1!important;translate:0!important}
+html[data-scene-transition="armament"] .build-sword .blade-caption{opacity:0}
+html[data-scene-transition="armament"] .weapon-display:after{opacity:0;animation:none}
+.build-backlight{opacity:calc(.38 + var(--light-tip,.6)*.23)}
+.build-sword .sword-light{opacity:calc(.22 + var(--light-tip,.6)*.5)}
+.weapon-option{transition:background .3s,border-color .3s,filter .3s}
+.weapon-option:focus-visible{outline-offset:5px}
+
+/* A small, persistent navigation instrument on the horizontal archive. */
+ .about-index-toggle{position:absolute;z-index:8;left:calc(var(--frame-inset) + var(--icon-gap) - var(--hud-icon)*.5);top:calc(var(--frame-inset) + var(--icon-gap) - var(--hud-icon)*.5);box-sizing:border-box;width:var(--hud-icon);height:var(--hud-icon);min-height:0;padding:0}
+.field-world .frame-tools [data-journey-menu]{visibility:hidden;pointer-events:none}
+.about-wayfinder{position:absolute;z-index:8;bottom:20px;left:50%;translate:-50% 0;display:flex;align-items:center;gap:14px;padding:4px 10px;border:1px solid #bda66e25;background:#070b0bbd;backdrop-filter:blur(10px);color:#afa58c;max-width:calc(100% - 32px)}
+.about-wayfinder button{display:grid;place-items:center;width:32px;height:32px;font:17px Arial,sans-serif;color:#bda774;transition:background .2s,color .2s}
+.about-wayfinder button:hover:not(:disabled){background:#c8ad7012;color:#efe0b4}
+.about-wayfinder button:disabled{opacity:.25}
+.scene-position{font:400 9px Arial,sans-serif;letter-spacing:.06em;white-space:nowrap;color:#9a9e8e;font-variant-numeric:tabular-nums}
+.scene-name{font:400 9px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;min-width:89px;white-space:nowrap;color:#c4b38a}
+.scene-track{display:block;width:65px;height:1px;background:#a5966d38}
+.scene-track i{display:block;height:100%;width:var(--scene-progress,8%);background:#cbb077;transition:width .55s var(--motion-out)}
+
+/* Consistent quiet controls; progress is useful instead of decorative glow. */
+.page-top{width:54px;height:54px;min-height:54px;padding:5px;border:1px solid #b6a26b35;border-radius:50%;display:flex;flex-direction:column;gap:3px;letter-spacing:.08em;background:#080c0ddd;backdrop-filter:blur(8px);color:#cfbc8b;right:clamp(20px,2.7vw,52px);bottom:26px}
+.page-top>span{font:18px/1 Arial,sans-serif}
+.page-top>small{font:8px/1 Arial,sans-serif;letter-spacing:.14em}
+.page-top:before{content:"";position:absolute;inset:-3px;border-radius:50%;padding:1px;background:conic-gradient(#c3a66d var(--page-progress,0%),transparent 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+.page-top:hover{background:#141a17e6;color:#ebd9a6;border-color:#c5ad7477}
+.realm-mark .realm-seal{transition:transform .55s var(--motion-out),filter .35s}
+.realm-mark:is(:hover,:focus-visible) .realm-seal{transform:translateY(-3px);filter:drop-shadow(0 0 8px #d0c29a50)}
+.realm-mark .mark-name{transition:color .3s,letter-spacing .45s var(--motion-out)}
+.realm-mark:is(:hover,:focus-visible) .mark-name{letter-spacing:.095em}
+.origin-card .card-frame{transition:filter .5s var(--motion-out),transform .6s var(--motion-out)}
+.origin-card:hover .card-frame{filter:brightness(1.1)}
+.about-return,.movie-toggle,.intro-film-toggle{touch-action:manipulation}
+
+@media(max-width:1000px){.nav-link-note{display:none}.chapter-index .nav-chapters>a:not(.menu-home){grid-template-columns:26px 1fr 22px;gap:10px}.nav-left{width:43%}.nav-left>h2{font-size:clamp(30px,4.2vw,48px)}.nav-preview{left:60%;right:7%}.nav-preview-name{font-size:7vw}.nav-preview-copy{font-size:14px}}
+@media(max-width:650px) and (orientation:portrait){
+ .chapter-index:after{inset:10px}.nav-header{left:7%;right:7%;top:4%;gap:15px}.nav-edition{display:none}.nav-brand{width:127px}.nav-close{gap:10px;font-size:8px}.nav-close i{width:36px;height:36px}
+ .nav-visual{left:0;opacity:.46}.nav-atmosphere{background:linear-gradient(90deg,#080b0dea,#080b0d70),linear-gradient(0deg,#080b0df7,transparent)}
+ .nav-left{left:9%;top:20%;width:82%}.nav-eyebrow{font-size:8px;margin-bottom:18px}.nav-left>h2{font-size:38px;margin-bottom:26px}
+ .chapter-index .nav-chapters>a:not(.menu-home){min-height:66px;grid-template-columns:30px 1fr 24px}.nav-link-name{font-size:35px}.nav-preview{display:none}.nav-footer{left:9%;right:9%;bottom:5%}.nav-key-hint{display:none}
+ .about-wayfinder{gap:8px;bottom:16px;padding:3px 5px}.scene-track{width:32px}.scene-name{min-width:72px;font-size:8px}.scene-position{font-size:8px}.page-top{bottom:20px;width:48px;height:48px;min-height:48px}
+}
+@media(max-height:600px) and (min-width:651px){.nav-left{top:19%}.nav-left>h2{font-size:3.4vw;margin-bottom:16px}.nav-eyebrow{margin-bottom:12px}.chapter-index .nav-chapters>a:not(.menu-home){min-height:10vh}.nav-link-name{font-size:3vw}.nav-preview{bottom:15%}.nav-footer{bottom:4%}}
+@media(prefers-reduced-motion:reduce){
+ .nav-scene,.nav-link-name,.nav-link-arrow,.nav-chapters>a:after,.scene-track i,.page-top,.realm-mark .realm-seal{transition:none!important}
+ .nav-header,.nav-eyebrow,.nav-left>h2,.nav-preview,.nav-footer,.chapter-index .nav-chapters>a:not(.menu-home){animation:none!important}
+ .nav-scene{transform:none}.about-wayfinder{backdrop-filter:none}
+ ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+}
+@media(max-height:600px) and (orientation:landscape){
+ .nav-left{top:23%}.nav-left>h2{display:none}.nav-eyebrow{margin-bottom:14px}
+ .chapter-index .nav-chapters>a:not(.menu-home){min-height:12vh}.nav-link-name{font-size:clamp(24px,3vw,38px)}
+ .nav-preview{bottom:18%}.nav-preview-name{font-size:6vw;margin-bottom:14px}.nav-preview-copy{margin-bottom:14px;font-size:12px}
+}
+
+/* Opening image deck responds to scrolling, without pointer decoration. */
+.opening-deck .field-fragment::before,
+.opening-deck .fragment-caption,
+.opening-deck .fragment-face::before,
+.opening-deck .fragment-face::after{display:none}
+.opening-deck .field-fragment:is(:hover,:focus-visible,.touch-lit) .fragment-face{border:0;translate:none;box-shadow:none}
+.opening-deck .field-fragment:is(:hover,:focus-visible,.touch-lit) img{filter:grayscale(var(--mono)) brightness(.81)}
+/* Blend the first chronicle backdrop into the entrance's black floor. */
+.story-spread.age::before{content:'';position:absolute;inset:0 0 auto;height:clamp(130px,17vw,340px);background:linear-gradient(#000 0%,#000e 24%,#0008 58%,transparent);pointer-events:none;z-index:-1}
+/* Small editorial launch lockup, aligned with the existing right-hand still. */
+.chronicle-launch .launch-leaf{display:block;width:clamp(22px,3.2vw,62px);height:auto;margin:0 0 .7vw}
+.chronicle-launch h3{margin:0 0 1.3vw;font:400 clamp(27px,4.2vw,80px)/1.08 var(--serif);letter-spacing:-.035em;color:#c59a55}
+.chronicle-launch h3::after{display:none}
+.chronicle-launch p{margin:0;font:400 clamp(11px,1.18vw,22px)/1.5 var(--serif);color:#b8ad8e}
+/* Independent, overlapping flame currents keep the portal alive at rest. */
+.story-portal .ember-portal::before{animation:portal-fire-halo 3.2s ease-in-out infinite alternate;opacity:.9}
+.story-portal .ember-portal:hover::before{animation-duration:3.2s}
+.story-portal .ember-wick{animation:portal-fire-wick 2.7s -.8s ease-in-out infinite alternate}
+.story-portal .ember-wick::before{animation:portal-fire-wick 2.1s -1.4s ease-in-out infinite alternate-reverse}
+.story-portal .ember-wick::after{animation:portal-fire-wick 3.7s -2s ease-in-out infinite alternate}
+@keyframes portal-fire-halo{0%{transform:rotate(-12deg) scale(.98,1.07);opacity:.68}35%{transform:rotate(3deg) scale(1.07,.99);opacity:.94}68%{transform:rotate(-3deg) scale(1.01,1.1);opacity:.78}100%{transform:rotate(14deg) scale(1.07,1.02);opacity:1}}
+@keyframes portal-fire-wick{0%{transform:translate(-2%,2%) rotate(-9deg) scale(.96,1.04);opacity:.65}42%{transform:translate(2%,-4%) rotate(5deg) scale(1.08,1.15);opacity:1}76%{transform:translate(-1%,-1%) rotate(-3deg) scale(1.03,1.07);opacity:.78}100%{transform:translate(3%,-3%) rotate(9deg) scale(1.06,1.12);opacity:.94}}
+@media(prefers-reduced-motion:reduce){.story-portal .ember-portal::before,.story-portal .ember-wick,.story-portal .ember-wick::before,.story-portal .ember-wick::after{animation:none}}
+
+/* Gold details follow the Golden Age reference composition. */
+.age .chronicle-art:first-child::before{content:'';position:absolute;top:-1%;left:-.5%;width:9%;aspect-ratio:122/119;background:url(assets/prologue/corner.webp) top left/contain no-repeat;pointer-events:none;z-index:1}
+.chronicle-age-sigil{z-index:3;pointer-events:none}
+.chronicle-age-sigil img{display:block;width:100%;height:auto}
+@media(prefers-reduced-motion:no-preference){.chronicle-age-sigil.await-rise{transform:translateY(12px);transition:opacity 1.8s .2s ease,transform 2s .2s cubic-bezier(.2,.7,.2,1)}.chronicle-age-sigil.risen{transform:none;opacity:1}}
+
+.age .age-history-first,.age .age-history-second{font:400 clamp(11px,1.08vw,21px)/1.48 var(--serif);color:#b3aa8e}
+.history-leaf{position:absolute;left:0;bottom:100%;width:clamp(22px,3vw,58px);height:auto;margin-bottom:1.4vw}
+.age .chronicle-art:nth-of-type(3)::after{content:'';position:absolute;right:0;bottom:0;width:17%;aspect-ratio:1;border-right:1px solid #b59532;border-bottom:1px solid #b59532;pointer-events:none}
+@media(max-width:650px){.age .age-history-first{left:8%;width:23%;font-size:11px}.age .age-history-second{left:34%;top:74%;width:23%;font-size:11px}}
+
+.age .chronicle-art:last-child figcaption{padding-top:1.8vw;text-align:center;color:#b3aa8e;font:italic clamp(12px,1.6vw,30px)/1.3 var(--serif)}
+.blessing .blessing-history{font:400 clamp(11px,1.08vw,21px)/1.48 var(--serif);color:#b3aa8e}
+.age .chronicle-art:last-child figcaption{text-transform:none;letter-spacing:0}
+
+.blessing .blessing-continuation{font:400 clamp(11px,1.08vw,21px)/1.48 var(--serif);color:#b3aa8e}
+
+.chronicle-war-sigil img{display:block;width:100%;height:auto}
+.war .chronicle-art:nth-of-type(2) figcaption{padding-top:2.3vw;text-align:right;text-transform:none;letter-spacing:0;font:400 clamp(11px,1.08vw,21px)/1.48 var(--serif);color:#b3aa8e}
+.war .war-history{font:400 clamp(11px,1.08vw,21px)/1.48 var(--serif);color:#b3aa8e}
+@media(max-width:650px){.war .war-history{width:20%;font-size:11px}}
+
+.war .chronicle-art:nth-of-type(4){z-index:1}
+.war .chronicle-art:nth-of-type(5) img{filter:brightness(.78)}
+.war .war-aftermath{font:400 clamp(11px,1.08vw,21px)/1.48 var(--serif);color:#b3aa8e}
+.war .war-aftermath p+p{margin-top:5.2vw}
+
+.crown-play-ring{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke-width:.65;transform:rotate(-90deg)}
+.crown-play-ring .ring-base{stroke:#fff7;stroke-width:.45}
+.crown-play-ring .ring-draw{stroke:#fff;stroke-dasharray:50 100;stroke-dashoffset:50;transition:stroke-dashoffset .65s cubic-bezier(.22,.61,.36,1)}
+.crown-film:is(:hover,:focus-visible) .ring-draw{stroke-dashoffset:0}
+.crown-play-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1.8vw;color:#f8f4e6;font:400 clamp(10px,.9vw,18px)/1 var(--serif)}
+.crown-play-label b{font-size:clamp(18px,1.5vw,30px);font-weight:400}
+@media(prefers-reduced-motion:no-preference){
+ .crown-sequence .chronicle-piece{opacity:0;translate:0 12px;transition:opacity .8s ease,translate .95s ease;pointer-events:none}
+ .crown-sequence.crown-visible .chronicle-piece{opacity:1;translate:0 0;pointer-events:auto;transition-duration:1.15s,1.3s}
+ .crown-sequence.crown-visible .chronicle-heading{transition-delay:.32s}
+ .crown-sequence.crown-visible .crown-film{transition-delay:.64s}
+ .crown-sequence:not(.crown-visible) .chronicle-art{transition-delay:.16s}
+ .crown-sequence:not(.crown-visible) .chronicle-heading{transition-delay:.08s}
+ .chronicle-age-sigil.soft-reveal{transition-duration:1.8s,2s,2s!important;transition-delay:.2s!important}
+}
+@media(prefers-reduced-motion:reduce){.crown-play-ring .ring-draw{transition:none}}
+
+/* A restrained magnetic response stays local to the prologue portal. */
+.story-portal .ember-portal{margin-left:var(--portal-x,0px);margin-top:var(--portal-y,0px)}
+.story-portal .portal-film-still{background-position:calc(70% + var(--portal-art-x,0px)) calc(48% + var(--portal-art-y,0px))}
+/* Materialise the actual gold artwork, then let its light breathe gently. */
+.chronicle-sigil::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;background:linear-gradient(175deg,transparent 15%,#fff2ad 47%,#fffce7 50%,#f0b64b 54%,transparent 80%);background-size:100% 260%;background-position:0 100%;mask:var(--sigil-art) center/100% 100% no-repeat;-webkit-mask:var(--sigil-art) center/100% 100% no-repeat;mix-blend-mode:screen}
+@media(prefers-reduced-motion:no-preference){
+ .chronicle-sigil img{opacity:0;clip-path:inset(0 0 100%);filter:blur(4px) brightness(2)}
+ .chronicle-sigil.sigil-lit img{animation:sigil-materialise 1.8s cubic-bezier(.16,.65,.28,1) both,sigil-embers 4.6s 1.8s ease-in-out infinite alternate}
+ .chronicle-sigil.sigil-lit::after{animation:sigil-gold-sweep 2.1s .12s ease-in-out both}
+}
+@keyframes sigil-materialise{0%{opacity:0;clip-path:inset(0 0 100%);filter:blur(4px) brightness(2.5)}35%{opacity:1;filter:blur(1.2px) brightness(1.9)}100%{opacity:1;clip-path:inset(0 0 -8%);filter:blur(0) brightness(1.1)}}
+@keyframes sigil-gold-sweep{0%{opacity:0;background-position:0 100%}25%{opacity:.85}85%{opacity:.5}100%{opacity:0;background-position:0 0%}}
+@keyframes sigil-embers{from{filter:brightness(1.05) drop-shadow(0 0 2px #e7a74333)}to{filter:brightness(1.28) drop-shadow(0 0 6px #e7a74366)}}
+
+/* Feather the baked-in horizontal edge of the backdrop without blurring the sword or lettering. */
+.build-path .print-ground::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 58%,#0002 68%,#0008 76%,#000e 81%,#000d 84%,#0009 89%,#0005 95%,#0004 100%)}
+
+/* One navigation list over a full-bleed chapter image. */
+.chapter-index .nav-visual{inset:0}
+.chapter-index .nav-scene{top:0;left:0;width:100%;height:115%;object-fit:cover;object-position:center top;transform:scale(1.04);transform-origin:center top}
+.chapter-index .nav-scene.is-current{transform:scale(1.04)}
+.chapter-index .nav-atmosphere{background:linear-gradient(90deg,#080b0df5 0%,#080b0de6 24%,#080b0d95 48%,#080b0d20 80%),linear-gradient(180deg,#080b0d70,transparent 30%,#080b0d80)}
+.chapter-index .nav-left{top:50%;left:10%;width:38%;translate:0 -50%}
+.chapter-index .nav-eyebrow{font-size:9px;letter-spacing:.25em;margin-bottom:28px;color:#b8a477}
+.chapter-index .nav-chapters>a:not(.menu-home){grid-template-columns:26px 1fr 24px;gap:20px;min-height:clamp(72px,11vh,112px);border-bottom-color:#d2bd8220}
+.chapter-index .nav-link-name{font-size:clamp(40px,4.4vw,82px);line-height:1.15;color:#b1b2a9}
+.chapter-index .nav-number{font-size:9px}
+.chapter-index .nav-link-arrow{font-size:24px}
+@media(max-width:730px){
+ .chapter-index .nav-left{left:10%;width:77%;top:51%}
+ .chapter-index .nav-link-name{font-size:clamp(35px,8.7vw,58px)}
+ .chapter-index .nav-chapters>a:not(.menu-home){min-height:clamp(65px,11vh,92px)}
+ .chapter-index .nav-atmosphere{background:linear-gradient(90deg,#080b0de6,#080b0d80),linear-gradient(180deg,#080b0d40,transparent 50%,#080b0d80)}
+}
+
+.chronicle-sigil{pointer-events:none}
+.chronicle-sigil img{display:block;width:100%;height:auto}
+.chronicle-rise-caption{z-index:3;text-align:center;font:italic clamp(12px,1.6vw,30px)/1.3 var(--serif);color:#b3aa8e}
+.chronicle-rise-caption p{margin:0}
+
+/* Complete package imagery and two clear edition specifications. */
+.package-guide{position:relative;padding:clamp(55px,6vw,116px) max(6vw,calc((100vw - 1700px)/2));background:#070a09}
+.package-edition{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(36px,5.6vw,110px);align-items:start;max-width:1700px;margin:0 auto}
+.package-edition+.package-edition{margin-top:clamp(70px,8.5vw,165px);padding-top:clamp(38px,4vw,76px);border-top:1px solid #c8b17e25}
+.package-art{position:relative;display:block;width:100%;padding:0;border:1px solid #b9a27588;border-radius:15px;overflow:hidden;background:#090a08;cursor:zoom-in}
+.package-art>img{display:block;width:100%;height:auto;aspect-ratio:1034/582;object-fit:contain;transition:filter .4s ease}
+.package-art:hover>img{filter:brightness(1.07)}
+.package-zoom{position:absolute;right:14px;bottom:9px;color:#eee8d6aa;font:300 28px/1 Arial,sans-serif;transition:color .25s}
+.package-art:hover .package-zoom{color:#fff0c2}
+.package-copy h2{margin:0 0 clamp(22px,2.5vw,42px);font:400 clamp(18px,1.85vw,32px)/1.35 var(--serif);letter-spacing:.075em;color:#d9bd81;text-wrap:balance}
+.package-copy h2>span{white-space:nowrap;font-size:.88em;letter-spacing:.03em}
+.package-price{margin:0 0 25px;font:500 clamp(16px,1.6vw,27px)/1.5 var(--sans);letter-spacing:.035em;color:#f1ede5}
+.package-price>span{white-space:nowrap}
+.package-copy h3{font:500 clamp(15px,1.45vw,24px)/1.6 var(--sans);letter-spacing:.07em;color:#f1ede5;margin:0 0 4px}
+.package-copy ul{margin:0;padding-left:1.3em;color:#e9e5dc;font:400 clamp(14px,1.4vw,23px)/1.65 var(--sans);letter-spacing:.025em}
+.package-copy li+li{margin-top:2px}
+.package-purchase{display:flex;align-items:center;justify-content:center;gap:40px;width:min(100%,340px);min-height:60px;padding:15px 24px;margin-top:26px;background:#b19d62;color:#0d100c;font:500 clamp(16px,1.5vw,23px)/1.4 var(--sans);letter-spacing:.1em;transition:background .3s}
+.package-purchase:hover{background:#cfb87a}
+.package-purchase>span{font:22px Arial,sans-serif}
+.package-upgrade{margin-top:18px;background:#efeee8;color:#141810;font-family:var(--sans)}
+.package-upgrade summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 19px;cursor:pointer;font-size:clamp(11px,.96vw,16px);font-weight:500;line-height:1.5}
+.package-upgrade summary::-webkit-details-marker{display:none}
+.package-upgrade summary>span{font:20px Arial,sans-serif;transition:rotate .25s}
+.package-upgrade[open] summary>span{rotate:45deg}
+.package-upgrade>p{margin:0;padding:0 19px 15px;font-size:12px;line-height:1.7}
+.package-upgrade a{text-decoration:underline;text-underline-offset:3px}
+.package-fineprint{margin:12px 0 0;font:400 clamp(10px,.8vw,13px)/1.65 var(--sans);color:#898d83;letter-spacing:.035em}
+.package-lightbox{margin:0;width:min(1034px,88vw)}
+.package-lightbox img{width:100%;height:auto;max-height:78svh;object-fit:contain}
+.package-lightbox figcaption{margin:16px 0 0;color:#d4bc84;text-align:center;font:400 clamp(12px,1.3vw,20px)/1.4 var(--serif);letter-spacing:.08em}
+@media(max-width:730px){.package-guide{padding:45px 6vw 70px}.package-edition{grid-template-columns:1fr;gap:26px}.package-edition+.package-edition{margin-top:60px;padding-top:40px}.package-copy h2{font-size:21px;margin-bottom:22px}.package-price{font-size:17px;margin-bottom:22px}.package-copy ul{font-size:14px}.package-copy h3{font-size:15px}.package-purchase{min-height:54px}.package-art{border-radius:11px}}
+
+/* A short chapter interlude masks the actual page swap and image preparation. */
+#chapter-loading{position:fixed;inset:0;margin:0;padding:0;border:0;max-width:none;max-height:none;width:100%;height:100dvh;background:#050807;color:#dfd8c4;overflow:hidden;outline:none}
+#chapter-loading::backdrop{background:transparent}
+#chapter-loading[open]{display:grid;place-items:center}
+.chapter-loader-content{display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none}
+.loader-sigil{position:relative;width:clamp(75px,7vw,122px);margin-bottom:32px}
+.loader-sigil img{display:block;width:100%;height:auto;animation:loader-rune-in .75s .12s cubic-bezier(.16,.65,.28,1) both}
+.loader-sigil::after{content:'';position:absolute;inset:-30%;background:radial-gradient(ellipse,#c4912425,transparent 64%);z-index:-1}
+.loader-overline{margin:0 0 13px;font:400 8px/1.4 Arial,sans-serif;letter-spacing:.34em;color:#a79060;animation:loader-copy-in .4s .18s both}
+.loader-chapter{margin:0;font:400 clamp(28px,3vw,48px)/1.15 var(--serif);letter-spacing:-.015em;color:#d7c28f;animation:loader-copy-in .5s .25s both}
+.loader-thread{position:relative;display:block;overflow:hidden;width:96px;height:1px;margin-top:26px;background:#c5ac7028}
+.loader-thread::after{content:'';position:absolute;inset:0;transform-origin:left;background:linear-gradient(90deg,#a78543,#f6e1a8);animation:loader-thread-in .76s .15s cubic-bezier(.2,.7,.2,1) both}
+@keyframes loader-rune-in{from{opacity:0;clip-path:inset(0 0 100%);filter:blur(3px) brightness(2.5)}to{opacity:1;clip-path:inset(0 0 -8%);filter:blur(0) brightness(1.2) drop-shadow(0 0 9px #d5aa4650)}}
+@keyframes loader-copy-in{from{opacity:0;translate:0 5px}to{opacity:1;translate:0 0}}
+@keyframes loader-thread-in{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+/* Keep the full source image visible and anchor it to the left. */
+.chapter-index .nav-scene,.chapter-index .nav-scene.is-current{inset:0;width:100%;height:100%;object-fit:contain;object-position:left center;transform:none;filter:saturate(.8) brightness(.85)}
+.chapter-index .nav-atmosphere{background:linear-gradient(90deg,#080b0d91 0%,#080b0d70 26%,#080b0d25 60%,#080b0d10),linear-gradient(180deg,#080b0d70 0%,transparent 25%,transparent 72%,#080b0de6 100%)}
+.chapter-index .nav-link-name{color:transparent;background:linear-gradient(110deg,#8e7447 0%,#d5bd82 26%,#f5e0ac 43%,#aa854a 60%,#ddc58c 82%,#9f7c45 100%);background-size:210% 100%;background-position:0 50%;background-clip:text;-webkit-background-clip:text;filter:drop-shadow(0 2px 8px #0009);transition:background-position .85s ease,filter .55s ease,transform .55s var(--motion-out)}
+.chapter-index .nav-chapters>a.is-previewed .nav-link-name,.chapter-index .nav-chapters>a:is(:hover,:focus-visible) .nav-link-name{color:transparent;background-position:100% 50%;filter:brightness(1.22) drop-shadow(0 0 13px #d1ac5340)}
+@media(max-width:730px){.chapter-index .nav-atmosphere{background:linear-gradient(90deg,#080b0dbb,#080b0d40),linear-gradient(180deg,#080b0d70,transparent 28%,transparent 72%,#080b0de6)}}
+.loader-sigil{isolation:isolate}
+.loader-sigil img{filter:brightness(1.25) drop-shadow(0 0 8px #d5aa4650);animation:loader-rune-in .55s .08s ease-out both}
+@keyframes loader-rune-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+
+/* Full bleed, with the embedded artwork credits outside the visible canvas. */
+.chapter-index .nav-visual{inset:0;overflow:hidden;background:#080b0d}
+.chapter-index .nav-scene,.chapter-index .nav-scene.is-current{inset:0 auto auto 0;width:100%;height:115%;object-fit:cover;object-position:left top;transform:none}
+/* Do not expose the decoded first frame while seeking beyond the rating card. */
+.archive-cinema .central-media video{opacity:0;transition:opacity .32s ease}
+.archive-cinema .central-media video.film-ready{opacity:1}
+
+/* Quiet inactive navigation and slower, continuous scene motion. */
+.chapter-index .nav-chapters>a .nav-link-name{font-size:clamp(30px,3.5vw,64px);color:#a8aaa7;background:none;filter:none;transform:none;transition:font-size .55s var(--motion-out),color .5s,filter .55s,transform .55s var(--motion-out)}
+.chapter-index .nav-chapters>a.is-previewed .nav-link-name,.chapter-index .nav-chapters>a:is(:hover,:focus-visible) .nav-link-name{font-size:clamp(40px,4.4vw,82px);color:transparent;background:linear-gradient(110deg,#8e7447,#f5e0ac 43%,#aa854a 60%,#ddc58c);background-clip:text;-webkit-background-clip:text;transform:translateX(6px);filter:brightness(1.15)}
+/* Hovered chapter rows open up above and below, then settle back on leave. */
+.chapter-index .nav-chapters>a:not(.menu-home){transition:margin .55s var(--motion-out)}
+.chapter-index .nav-chapters>a:not(.menu-home):is(:hover,:focus-visible){margin-block:clamp(12px,2.4vh,28px)}
+.chapter-compass a:not([aria-current]) span{color:#b7b9b7;font-size:clamp(9px,.72vw,13px)}
+.chapter-compass a:not([aria-current]):is(:hover,:focus-visible) span{opacity:.75}
+@media(max-width:650px){.chapter-index .nav-chapters>a .nav-link-name{font-size:clamp(28px,7vw,45px)}.chapter-index .nav-chapters>a:is(.is-previewed,:hover,:focus-visible) .nav-link-name{font-size:clamp(35px,8.7vw,58px)}}
+@media(prefers-reduced-motion:no-preference){
+ .journey-port{scroll-snap-type:none}
+ .soft-reveal,.soft-reveal.soft-visible{transition-duration:1.8s,2.1s,2.1s!important;transition-delay:.12s!important}
+ .chronicle-piece.await-rise{transition-duration:1.8s,2.1s}
+ .will-reveal{transition-duration:1.7s,2s}
+ .story-row.will-reveal figure{transition-duration:1.8s}
+ .story-row.will-reveal :is(h2,.kr){transition-duration:1.6s,1.9s}
+ .crown-sequence .chronicle-piece{transition-duration:1.7s,2s}
+ .chapter-top-content h1,.chapter-top-content .kicker,.gallery-cover-title h1{animation-duration:1.65s}
+}
+/* Keep About's artwork and chapter markers inside its own viewport. */
+.field-world{overflow:hidden;clip-path:inset(0)}
+.field-world .chapter-compass{right:calc(var(--frame-inset) + 8px)}
+.field-world .chapter-compass a{padding-right:0}
+
+.field-world-copy h1.world-heading-uniform{font:400 calc(8*var(--u))/1.13 Georgia,"Times New Roman",serif;font-style:normal;font-variant:normal;letter-spacing:-.025em;text-align:center;line-height:1.13}
+.field-world h1.world-heading-uniform>span{display:block;white-space:nowrap;margin:0;text-transform:inherit;font:inherit;letter-spacing:inherit;background:linear-gradient(110deg,#eee5a1 8%,#f3e6ad 30%,#b18b51 57%,#ead69a 80%,#f5e6a7);background-clip:text;-webkit-background-clip:text;color:transparent}
+
+/* Main journey rests on one full-screen scene at a time. */
+.journey-port{scroll-snap-type:y mandatory}
+.journey-port.is-scene-gliding{scroll-snap-type:none}
+/* The About cover must span the viewport even on wide, short displays. */
+.field-rail>.field-world{width:100%;flex:0 0 100%;min-width:0}
+
+.chapter-compass a span,.chapter-compass a:not([aria-current]) span,.chapter-compass a:is(:hover,:focus-visible,[aria-current]) span{color:#b7b9b7;opacity:.75;font-size:clamp(8px,.65vw,12px);font-weight:400}
+
+/* Prologue cover: keep the photo's proportions and melt its lower edge into the chronicle below. */
+.story-portal{background-size:cover;background-position:center 42%}
+.story-portal:before{background:linear-gradient(0deg,#000 0%,#000c 7%,#0006 17%,transparent 30%);z-index:-1}
+.story-portal:after{content:'';position:absolute;inset:auto 0 0;height:30%;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);-webkit-mask-image:linear-gradient(0deg,#000 35%,transparent);mask-image:linear-gradient(0deg,#000 35%,transparent)}
+@media(max-width:650px){.story-portal{background-size:cover;background-position:52% center}}
+
+/* Side chapter compass: hovered and current chapters grow and glow gold. */
+.chapter-compass a span{transition:font-size .4s var(--motion-out),color .35s,opacity .35s,text-shadow .35s}
+.chapter-compass a i{transition:background .35s,box-shadow .35s,transform .35s var(--motion-out)}
+.chapter-compass a:is(:hover,:focus-visible,[aria-current]) span{color:#f1d38a;opacity:1;font-size:clamp(11px,.9vw,16px);text-shadow:0 0 6px #e9bf5fa6,0 0 16px #d29f3a66,0 0 2px #090805}
+.chapter-compass a:is(:hover,:focus-visible,[aria-current]) i{background:linear-gradient(135deg,#fff0b6,#cc9c36);box-shadow:0 0 6px #f0c463,0 0 14px #e6bb5788;transform:rotate(45deg) scale(1.35)}

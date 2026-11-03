@@ -1,0 +1,141 @@
+/* All horizontal landmarks use the same 2048 × 76 reference board. On narrow
+   displays the rail can be panned without shrinking the artwork into a thumbnail. */
+.field-rail{--origin-span:206;--u:min(calc(100svh / 76),max(5.5px,calc(100vw / 150)))}
+.field-rail>.field-panel{width:calc(var(--span)*var(--u));flex:0 0 calc(var(--span)*var(--u));height:100%;padding:0;gap:0}
+.field-world{--span:150}.open-country{--span:151}.build-path{--span:169}.armory{--span:162}.field-origin{--span:var(--origin-span)}
+.field-rail>:is(.open-country,.build-path,.armory){width:100%;flex-basis:100%}
+.field-world-copy{display:contents}
+.field-world-copy h1{position:absolute;left:calc(31*var(--u));top:27.63%;width:calc(88.62*var(--u));margin:0}
+.field-world-copy .world-strap{position:absolute;left:50%;top:72.7%;translate:-50% 0;margin:0;font-size:calc(1.55*var(--u))}
+.world-strap img{width:calc(23.5*var(--u))}
+.field-print.open-country{overflow:hidden}
+.field-print .open-heading{left:4.65%;top:19.7%;width:38.7%}
+.canto-ready .open-heading>.about-live-type{font-size:calc(8.3*var(--u))}
+.open-country .folio-art{overflow:hidden}
+.open-country .folio-note{font-size:calc(1.45*var(--u));line-height:1.36;letter-spacing:.055em;color:#bdb093}
+.open-country .folio-note p{font-family:var(--serif);margin:0}
+.open-country .folio-note h3{font:400 calc(1.72*var(--u))/1.35 var(--about-sub-font);font-variant:normal;letter-spacing:.06em;color:#c7b692;margin:0 0 calc(2.4*var(--u))}
+.build-path .field-layout{width:calc(150*var(--u));left:50%;right:auto;translate:-50% -50%}
+.field-print .build-heading{left:calc(55*var(--u));top:14.47%;width:calc(92.22*var(--u));transform:none}
+.build-sword{left:0;top:11.18%;width:calc(40*var(--u));height:82.37%}
+.field-arm.armory{display:block}
+.armory .field-layout{--armory-inset:9.5%;width:min(100%,calc(154*var(--u)));left:50%;right:auto;translate:-50% -50%}
+.armory .armory-list{position:absolute;left:var(--armory-inset);top:15.79%;width:calc(28.2*var(--u));height:68.9%;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;gap:0;z-index:2}
+.armory-list .weapon-option{flex:none;width:100%;max-width:none;margin:0}
+.armory-list .weapon-option[data-weapon="2"] img{left:-2.557%}
+.armory-list .weapon-option small,.armory-list .weapon-option[data-weapon="2"] small{left:43.6%;font-size:3.16cqw}
+.armory .weapon-study{position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none}
+.armory .weapon-display{position:absolute;left:calc(50*var(--u));top:13.16%;width:calc(41.3*var(--u));height:73.68%;pointer-events:auto}
+.armory .weapon-art{width:100%;height:auto;max-width:100%}
+.weapon-spec{position:absolute;left:auto;right:var(--armory-inset);top:14.47%;width:calc(39*var(--u));height:71.05%;min-height:0;padding:calc(3.45*var(--u)) calc(3.5*var(--u));gap:calc(1.7*var(--u));pointer-events:auto}
+.weapon-spec .arm-attack img{max-width:none}
+.arm-attack>small{font-size:calc(1.26*var(--u))}.arm-attack b{font-size:calc(.98*var(--u))}
+.field-origin{display:block;z-index:1;background:transparent}
+.field-origin .roster-caption{position:absolute;left:calc(11*var(--u));top:32.89%;width:calc(28*var(--u));max-width:none;overflow:visible}
+.roster-caption h2{margin:0}.roster-caption h2 img{width:calc(25.62*var(--u));max-width:none}
+.field-origin .roster-caption p{display:block;width:calc(27*var(--u));max-width:none;margin:calc(3*var(--u)) 0 0;font-size:calc(1.8*var(--u));line-height:1.38}
+.field-origin .roster-caption .ghost-word{top:-10%;left:-6%;font-size:calc(8.8*var(--u))}
+.field-origin .folio-label,.field-origin .roster-help,.field-origin .group-note{display:none}
+.field-origin .roster-group{position:absolute;left:calc(55*var(--u));top:8.5%;width:calc(138*var(--u));height:86%}
+.field-origin .origin-cards{width:100%;height:100%;align-items:center;gap:calc(6.5*var(--u));transform:scale(.85);transform-origin:left center}
+.field-origin .origin-card{min-width:0}.field-origin .card-frame{max-height:none}
+.field-origin .origin-card .card-flourish{width:calc(5.74*var(--u))}
+.field-origin .roster-more{position:absolute;right:calc(4*var(--u));top:50%;translate:0 -50%;width:calc(7.2*var(--u));z-index:3}
+.reference-panorama{overflow:visible clip;--end-start:calc(996*var(--u));width:calc(1196*var(--u))}
+.reference-canvas{width:calc(1196*var(--u))}
+.fantasy-opening .fantasy-title{left:35.96%;top:34.21%;width:48.21%}
+.boss-outline{position:absolute;z-index:1;height:auto;max-width:none;pointer-events:none;user-select:none}
+.reference-piece{z-index:3}.reference-piece.malenia-portrait{z-index:4}.fantasy-opening{z-index:4}
+.panorama-air{position:absolute;z-index:0;pointer-events:none;background-position:center;background-repeat:no-repeat}
+.godfrey-ridge{background-image:url(assets/folio/panorama/godfrey-ridge.webp);background-size:100% 100%;mask-image:radial-gradient(ellipse farthest-side,#000 52%,transparent)}
+.moonlit-rider{background-image:url(assets/folio/night-ride.webp);background-size:cover;background-position:center;opacity:.36;mask-image:linear-gradient(90deg,transparent,#000 26%,#000 79%,transparent),linear-gradient(0deg,transparent,#000 17%,#000 83%,transparent);mask-composite:intersect}
+.panorama-leader{position:absolute;z-index:4;pointer-events:none;overflow:visible;height:auto;fill:none;stroke:currentColor;stroke-width:.65;color:#bea57b}
+.panorama-caption{position:absolute;z-index:4;pointer-events:auto;user-select:text;cursor:text;color:#c0b199;font:400 clamp(10px,calc(1.47*var(--u)),20px)/1.46 var(--about-sub-font);text-shadow:0 1px 3px #0007}
+.panorama-caption p,.panorama-caption h3{margin:0}
+.panorama-caption h3{font:400 clamp(14px,calc(2.49*var(--u)),34px)/1.12 var(--serif);letter-spacing:.02em;font-variant:small-caps}
+.caption-radahn{color:#bd6358}.caption-radahn h3{color:#b13e35;text-transform:uppercase;margin-bottom:.18em}
+.caption-spirit{color:#9cb6ca}.caption-spirit h3{color:#729cbd;text-transform:uppercase;margin-bottom:.47em}
+.caption-epithet{color:#c4a480;font-size:clamp(9px,calc(1.25*var(--u)),16px)}
+.caption-vertical{writing-mode:vertical-rl;text-orientation:sideways;white-space:nowrap;color:#b7ab98;font:italic 400 calc(6.45*var(--u))/1 var(--serif)}
+.reference-ending{left:var(--end-start);width:calc(182*var(--u));z-index:4;background:transparent}
+.ending-eye{width:57.14%;object-position:center}
+.ending-note{left:max(68.68%,calc(100% - 100vw + 24*var(--u)));z-index:1;top:14.47%;right:2.5%}
+.ending-note>img{width:calc(9.3*var(--u));margin-bottom:calc(1.25*var(--u))}
+.ending-note blockquote{font-size:calc(2.48*var(--u));line-height:1.18}
+.ending-note p{font-size:calc(1.28*var(--u));line-height:1.4;margin-top:calc(2.4*var(--u))}
+.ending-title{left:calc(-73*var(--u));top:71.05%;bottom:auto;width:calc(243*var(--u))}
+.about-finish-strip{position:absolute;z-index:5;left:calc(1178*var(--u));right:0;top:calc(50% - 50svh);height:100svh;overflow:hidden;background:transparent;border:0}
+.about-finish-rotated{--letter-window:calc(12*var(--u));position:absolute;top:100%;left:0;width:100svh;height:calc(18*var(--u));transform-origin:top left;transform:rotate(-90deg);display:flex;flex-direction:column}
+.about-finish-credits{height:calc(6*var(--u));display:flex;align-items:end}
+.about-finish-credits img{display:block;width:100%;height:auto}
+.about-finish-rotated .gallery-roll{display:block;flex:1;background:transparent}
+.about-finish-rotated .gallery-roll-track img{height:calc(1.85*var(--letter-window))}
+.about-return{position:relative;margin-top:clamp(18px,calc(2.6*var(--u)),36px);display:inline-flex;justify-content:center;align-items:center;gap:.65em;width:clamp(120px,calc(11*var(--u)),140px);white-space:nowrap;min-height:44px;padding:0 1em;border:1px solid #94835d90;border-radius:2px;background:rgb(7 8 7 / .74);color:#e3d1a6;font:400 13px/1.2 var(--about-sub-font);cursor:pointer}
+.about-return span{font:20px/1 var(--serif)}
+.about-return:is(:hover,:focus-visible){border-color:#e3d1a6;color:#fff0ce}
+.about-return[hidden]{display:none}
+/* Keep type, captions and image heights proportional on screens that are
+   taller than the reference. The five painted panel backgrounds remain full bleed. */
+.field-layout,.panorama-plane{position:absolute;left:0;right:0;top:50%;height:calc(76*var(--u));translate:0 -50%}
+.panorama-plane{isolation:isolate}
+/* One painted surface runs under the ending, credits and moving gold type. */
+.panorama-plane::before{content:"";position:absolute;z-index:-1;pointer-events:none;left:var(--end-start);right:0;top:calc(50% - 50svh);height:100svh;
+ background-color:#000;
+ background-image:linear-gradient(to right,transparent calc(100% - 30*var(--u)),#000 calc(100% - 16*var(--u))),url(assets/folio/backgrounds/tarnished.webp);
+ background-size:100% 100%,auto 100%;background-position:center,right calc(18*var(--u)) center;background-repeat:no-repeat}
+.reference-panorama{background:#000}
+.panorama-backdrop{position:absolute;z-index:0;opacity:.75;pointer-events:none;top:calc(50% - 50svh)!important;height:100svh;background-position:center;background-size:cover;background-repeat:no-repeat;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+/* Extend only the scenic paint above/below the coordinate plane, leaving the
+   interactive foreground at its reference coordinates. */
+.panorama-ground{top:calc(50% - 50svh)!important;height:100svh;object-fit:fill}
+.fantasy-opening,.reference-ending{top:calc(50% - 50svh)!important;height:100svh!important}
+.fantasy-opening .fantasy-title{top:calc(50% - 12*var(--u))}
+.ending-note{top:calc(50% - 27*var(--u))}
+.ending-title{top:calc(50% + 16*var(--u))}
+
+/* A single paint layer crosses the Origin/Fantasy landmark underneath both panels. */
+.origin-fantasy-paint{position:absolute;z-index:0;pointer-events:none;left:calc(-1*var(--origin-span)*var(--u));width:calc((var(--origin-span) + 114)*var(--u));top:calc(50% - 50svh);height:100svh;
+ background:linear-gradient(90deg,#000 calc((var(--origin-span) + 12)*var(--u)),transparent calc((var(--origin-span) + 35)*var(--u)))}
+.origin-fantasy-paint::before{content:"";position:absolute;inset:0 auto 0 0;width:calc(var(--origin-span)*var(--u));background:url(assets/folio/backgrounds/origin.webp) 26% center/cover no-repeat;mask-image:linear-gradient(90deg,#000 84%,transparent)}
+.origin-fantasy-paint .panorama-sky{right:0;top:0;width:calc(138*var(--u));height:100%;object-fit:cover;object-position:right center;mask-image:linear-gradient(90deg,transparent,#0001 12%,#0007 29%,#000d 44%,#000 57%)}
+@media(max-width:730px) and (orientation:portrait){
+ .build-path .field-layout,.armory .field-layout{left:0;top:0;width:100%;height:100%;translate:none}
+ .build-path .build-sword{left:6%;top:0;width:58%;height:46%}
+ .field-print .build-heading{left:6%;top:49%;width:88%}
+ .build-path:not(.field-in-view) .build-heading{translate:min(16px,4vw) 0}
+ .field-print .open-heading{left:6%;width:48%}
+ .open-country .folio-note{width:33%;font-size:clamp(10px,2.7vw,14px)}
+ .open-country .folio-note:last-child{left:64%}
+ .open-country .folio-note:not(:last-child){left:26%}
+ .armory .field-layout{--armory-inset:6%}
+ .armory .armory-list{top:4%;width:32%;height:38%}
+ .armory .weapon-display{left:41%;top:5%;width:52%;height:35%}
+ .armory .weapon-spec{top:46%;left:var(--armory-inset);right:var(--armory-inset);width:auto;height:49%;padding:2.4% 4%}
+}
+
+/* Shared, reversible fades for editorial artwork and copy. */
+@media(prefers-reduced-motion:no-preference){
+ .soft-reveal{opacity:0!important;transition-property:opacity,translate,transform!important;transition-duration:.85s,1.15s,1.15s!important;transition-timing-function:ease-in-out!important;transition-delay:0s!important}
+ .soft-reveal.soft-visible{opacity:1!important;transition-duration:1.15s,1.15s,1.15s!important;transition-delay:.04s!important}
+ .fantasy-opening.in-view .fantasy-title{animation-duration:1.3s;animation-delay:.1s}
+ .fantasy-opening .fantasy-title{transition:opacity .85s ease-in-out}
+}
+
+.about-return[data-ready="false"]{opacity:0!important;visibility:hidden;pointer-events:none;transition:opacity .75s ease,visibility 0s .75s!important}
+@media(prefers-reduced-motion:no-preference){
+ .ending-note>img.soft-visible,.ending-eye.soft-visible{transition-delay:.02s!important}
+ .ending-note>blockquote.soft-visible{transition-delay:.22s!important}
+ .ending-note>p.soft-visible{transition-delay:.35s!important}
+ .ending-note>.about-return.soft-visible[data-ready="true"]{animation:none;transform:none;translate:none;transition-delay:.35s!important;transition-duration:1.15s!important}
+}
+
+@media(prefers-reduced-motion:no-preference){
+ .ending-note>img.soft-reveal:not(.soft-visible){transition-delay:.22s!important}
+ .ending-note>blockquote.soft-reveal:not(.soft-visible){transition-delay:.12s!important}
+ .ending-note>p.soft-reveal:not(.soft-visible){transition-delay:.06s!important}
+}
+
+/* Live type stays sharp when the vertical marquee grows or moves. */
+.about-finish-rotated .gallery-roll-track{left:0;align-items:flex-start}
+.about-marquee-type{display:block;flex:none;white-space:nowrap;padding:0 .16em;font:400 calc(22*var(--u))/.85 "Times New Roman",Georgia,serif;letter-spacing:-.025em;background:linear-gradient(100deg,#bd8a3d,#efd17c 22%,#a97838 48%,#ebc578 76%,#b98c49);background-clip:text;-webkit-background-clip:text;color:transparent}
+.about-marquee-type strong{font:700 .91em/1 Arial,sans-serif;letter-spacing:-.035em;color:inherit}
